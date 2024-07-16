@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 13:59:08 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:10:00 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ int main(int ac, char **av)
 	}
 	try
 	{
-		Form test3;
 		Bureaucrat bureaucrat("saim", 1);
 		Form zak("zak", 1, 34);
 		Form test = zak;
 		bureaucrat.signForm(zak);
 		zak.beSigned(bureaucrat);
-		std::cout << test3;
 		std::cout << zak;
 	}
 	catch (const std::exception& e)
