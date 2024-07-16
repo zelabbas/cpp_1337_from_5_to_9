@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/13 16:50:53 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:39:57 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(int ac, char **av)
 	(void)av;
 	if (ac != 1)
 	{
-		std::cerr << "the program don't accepte arguments" << std::endl;
+		std::cerr << "the program doesn't accepte any arguments" << std::endl;
 		return (1);
 	}
 	try
