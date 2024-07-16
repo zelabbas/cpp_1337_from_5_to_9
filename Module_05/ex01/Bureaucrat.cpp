@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:44:30 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 11:23:10 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:56:01 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,16 @@ void	Bureaucrat::decrementGrade(void)
 	this->grade++;
 }
 
-void	Bureaucrat::signForm(const Form& obj) const
+void	Bureaucrat::signForm(Form& obj) const
 {
-	if (obj.isSigned())
-		std::cout << this->name << " signed " << obj.getName() << std::endl;
-	else
-		std::cout << this->name << " couldn’t sign " << obj.getName() << \
-		" because "<< "reason" << std::endl;
-		
+	try
+	{
+		obj.beSigned(*this);
+		std::cout << name << " signed " << obj.getName() << std::endl;
+	} catch (const std::exception &e)
+	{
+		std::cout << name << " couldn't sign " << obj.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 std::ostream& operator << (std::ostream &out, const Bureaucrat &c)
