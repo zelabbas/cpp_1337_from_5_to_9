@@ -1,4 +1,4 @@
-NAME = bureaucrat
+NAME = form
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
