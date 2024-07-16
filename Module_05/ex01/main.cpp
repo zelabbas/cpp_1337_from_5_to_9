@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 11:31:29 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:59:08 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,19 @@ int main(int ac, char **av)
 	(void)av;
 	if (ac != 1)
 	{
-		std::cerr << "the program don't accepte arguments" << std::endl;
+		std::cerr << "the program doesn't accepte any arguments" << std::endl;
 		return (1);
 	}
 	try
 	{
-		Form TEST("ZIKO",4, 2);
-		Bureaucrat saim("saim", 1);
-		Bureaucrat test = saim;
-		Bureaucrat zak("zak", 3);
-		TEST.beSigned(test);
-		test.signForm(TEST);
-		std::cout << TEST;
+		Form test3;
+		Bureaucrat bureaucrat("saim", 1);
+		Form zak("zak", 1, 34);
+		Form test = zak;
+		bureaucrat.signForm(zak);
+		zak.beSigned(bureaucrat);
+		std::cout << test3;
 		std::cout << zak;
-		std::cout << saim;
-		std::cout << test;
-		saim.incrementGrade();
-		std::cout << saim << std::endl;
-		saim.incrementGrade();
 	}
 	catch (const std::exception& e)
 	{
@@ -43,9 +38,10 @@ int main(int ac, char **av)
 	}
 	try
 	{
-		Bureaucrat ichou("ichou", 151);
+		Form ichou("ichou", 151, 49);
 	}
-	catch (const std::exception& e) {
+	catch (const std::exception& e)
+	{
 			std::cerr << e.what() << std::endl;
 	}
 	return 0;
