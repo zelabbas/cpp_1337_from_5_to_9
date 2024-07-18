@@ -6,13 +6,13 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:59:39 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/17 18:29:45 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:33:32 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
 
-AForm::AForm(void) : name(""), gradeRequiredtoSign(1), gradeRequiredtoExcute(1)
+AForm::AForm(void) : name("defaultName"), gradeRequiredtoSign(150), gradeRequiredtoExcute(150)
 {
 	this->_signed = false;
 }
@@ -22,14 +22,14 @@ AForm::AForm(const std::string& _name, int gradeSign, int gradeExcute): name(_na
 {
 	this->_signed = false;
 	if (this->gradeRequiredtoSign < 1 || this->gradeRequiredtoExcute < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException;
 	else if (this->gradeRequiredtoSign > 150 || this->gradeRequiredtoExcute > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException;
 }
 
 AForm::AForm(const AForm& obj) : name(obj.name), gradeRequiredtoSign(obj.gradeRequiredtoSign), gradeRequiredtoExcute(obj.gradeRequiredtoExcute)
 {
-	this->_signed = obj._signed;
+	*this = obj;
 }
 
 AForm::~AForm(void)
@@ -69,7 +69,17 @@ void	AForm::beSigned(const Bureaucrat& obj)
 	if (obj.getGrade() <= this->gradeRequiredtoSign)
 		this->_signed = true;
 	else
-		throw GradeTooLowException();
+		throw GradeTooLowException;
+}
+
+const char* AForm::GradeTooHighException::what() const throw()
+{
+	return "AForm: Grade too high!";
+}
+
+const char* AForm::GradeTooLowException::what() const throw()
+{
+	return "AForm: Grade too low!";
 }
 
 std::ostream& operator<<(std::ostream& out, const AForm& obj)

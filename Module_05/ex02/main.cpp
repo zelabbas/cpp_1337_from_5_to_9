@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/17 18:28:11 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:32:07 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int main(int ac, char **av)
 	}
 	try
 	{
-		AForm ichou("ichou", 151, 49);
+		AForm ichou("ichou", 150, 49);
+		std::cout << ichou;
 	}
 	catch (const std::exception& e)
 	{
