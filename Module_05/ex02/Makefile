@@ -1,4 +1,4 @@
-NAME = form
+NAME = aform
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
