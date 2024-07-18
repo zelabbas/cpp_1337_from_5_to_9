@@ -6,11 +6,10 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/18 19:12:59 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:38:23 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -27,25 +26,42 @@ int main(int ac, char **av)
 	try
 	{
 		Bureaucrat bureaucrat("saim", 1);
-		RobotomyRequestForm zak("test");
+		RobotomyRequestForm roboto("roboto");
 		
-		// bureaucrat.signForm(zak);
-		zak.beSigned(bureaucrat);
-		zak.execute(bureaucrat);
-		std::cout << zak;
+		bureaucrat.signForm(roboto);
+		roboto.execute(bureaucrat);
+		std::cout << roboto;
 	}
 	catch (const std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	// try
-	// {
-	// 	AForm ichou("ichou", 150, 49);
-	// 	std::cout << ichou;
-	// }
-	// catch (const std::exception& e)
-	// {
-	// 		std::cerr << e.what() << std::endl;
-	// }
+	
+	try
+	{
+		Bureaucrat bureaucrat("zak", 1);
+		ShrubberyCreationForm shrubbery("shrubbery");
+		bureaucrat.signForm(shrubbery);
+		shrubbery.execute(bureaucrat);
+		std::cout << shrubbery;
+	}
+	catch (const std::exception& e)
+	{
+			std::cerr << e.what() << std::endl;
+	}
+
+	try
+	{
+		std::srand(std::time(nullptr));
+		Bureaucrat bureaucrat("zak", 4);
+		PresidentialPardonForm presidential("presidential");
+		bureaucrat.signForm(presidential);
+		presidential.execute(bureaucrat);
+		std::cout << presidential;
+	}
+	catch (const std::exception& e)
+	{
+			std::cerr << e.what() << std::endl;
+	}
 	return 0;
 }

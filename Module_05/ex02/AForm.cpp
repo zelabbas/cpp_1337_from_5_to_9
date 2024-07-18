@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:59:39 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/18 12:28:09 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:26:27 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ const char* AForm::GradeTooLowException::what() const throw()
 
 const char* AForm::GradeNotSignedException::what() const throw()
 {
-	return "AFrom Grade Not Signed!";
+	return "AForm Grade Not Signed!";
 }
 
 void	AForm::checkExecution(const Bureaucrat& executor) const
