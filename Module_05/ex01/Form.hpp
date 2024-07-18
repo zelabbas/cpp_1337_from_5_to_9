@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:59:36 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 11:22:35 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:10:58 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,14 @@ class Form
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				const char* what() const throw()
-				{
-					return "Form: Grade too high!";
-				}
-		};
+				const char* what() const throw();
+		} GradeTooHighException;
 		
 		class GradeTooLowException : public std::exception 
 		{
 			public:
-				const char * what() const throw()
-				{
-					return "Form: Grade too low";
-				}
-		};
+				const char * what() const throw();
+		} GradeTooLowException;
 };
 
 std::ostream& operator << (std::ostream& out, const Form& obj);
