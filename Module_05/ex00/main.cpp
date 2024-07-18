@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 13:39:57 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:05:01 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int main(int ac, char **av)
 		Bureaucrat test = saim;
 		Bureaucrat zak("zak", 3);
 
+		std::cout << zak;
+		zak.incrementGrade();
 		std::cout << zak;
 		std::cout << saim;
 		std::cout << test;
