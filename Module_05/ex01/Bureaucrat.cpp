@@ -6,14 +6,13 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:44:30 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/16 14:02:27 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:57:31 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
 
-Bureaucrat::Bureaucrat(void) : name(""), grade(1)
+Bureaucrat::Bureaucrat(void) : name("defaultName"), grade(150)
 {
 
 }
@@ -21,15 +20,15 @@ Bureaucrat::Bureaucrat(void) : name(""), grade(1)
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name)
 {
 	if (grade < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException;
 	else if (grade > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException;
 	this->grade = grade;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& obj) : name(obj.name)
 {
-	this->grade = obj.grade;
+	*this = obj;
 }
 
 Bureaucrat::~Bureaucrat(void)
@@ -58,27 +57,25 @@ int	Bureaucrat::getGrade(void) const
 void	Bureaucrat::incrementGrade(void)
 {
 	if (grade <= 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException;
 	this->grade--;
 }
 
 void	Bureaucrat::decrementGrade(void)
 {
 	if (grade >= 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException;
 	this->grade++;
 }
 
-void	Bureaucrat::signForm(Form& obj) const
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	try
-	{
-		obj.beSigned(*this);
-		std::cout << this->name << " signed " << obj.getName() << std::endl;
-	} catch (const std::exception &e)
-	{
-		std::cout << this->name << " couldn't sign " << obj.getName() << " because " << e.what() << std::endl;
-	}
+	return "Bureaucrat: Grade too high!";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return "Bureaucrat: Grade too low!";
 }
 
 std::ostream& operator << (std::ostream &out, const Bureaucrat &c)
