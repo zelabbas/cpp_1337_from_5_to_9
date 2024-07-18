@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:59:39 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/18 09:33:32 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:28:09 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,22 @@ const char* AForm::GradeTooLowException::what() const throw()
 	return "AForm: Grade too low!";
 }
 
+const char* AForm::GradeNotSignedException::what() const throw()
+{
+	return "AFrom Grade Not Signed!";
+}
+
+void	AForm::checkExecution(const Bureaucrat& executor) const
+{
+	if (!_signed)
+		throw GradeNotSignedException;
+	if (executor.getGrade() > this->gradeRequiredtoExcute)
+		throw GradeTooLowException;
+}
+
 std::ostream& operator<<(std::ostream& out, const AForm& obj)
 {
-	out << "Form " << obj.getName() << ", Sign Status: " << (obj.isSigned() ? "Signed" : "Not Signed")
+	out << "AForm " << obj.getName() << ", Sign Status: " << (obj.isSigned() ? "Signed" : "Not Signed")
 	<< ", Grade Required to Sign: " << obj.getGradeRequiredtoSign()
 	<< ", Grade Required to Execute: " << obj.getGradeRequiredtoExcute() << std::endl;
 	return out;

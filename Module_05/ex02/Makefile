@@ -6,10 +6,10 @@ RM = rm -rf
 
 COMPILE = c++ 
 
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp
+SRCS = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp main.cpp
 OBJS = ${SRCS:.cpp=.o}
 
-%.o : %.cpp Bureaucrat.hpp AForm.hpp
+%.o : %.cpp Bureaucrat.hpp AForm.hpp PresidentialPardonForm.hpp ShrubberyCreationForm.hpp RobotomyRequestForm.hpp
 	@${COMPILE} ${FLAGS} -c $< -o $@
 	@echo "compilation file {$<} done 	✅"
 
