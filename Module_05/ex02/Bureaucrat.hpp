@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:44:27 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/18 09:33:16 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:34:51 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class Bureaucrat
 		void	incrementGrade(void);
 		void	decrementGrade(void);
 		void	signForm(AForm&);
+		void	executeForm(AForm const & form);
 		
 		// class exception gradetoo_high
 		class GradeTooHighException : public std::exception
