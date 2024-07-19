@@ -1,4 +1,4 @@
-NAME = aform
+NAME = coffee-making
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 

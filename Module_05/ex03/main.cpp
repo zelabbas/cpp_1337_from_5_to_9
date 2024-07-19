@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:45:46 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/19 11:52:35 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:55:11 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,36 @@ int main(int ac, char **av)
 	}
 	try
 	{
-		Bureaucrat bureaucrat("saim", 1);
-		RobotomyRequestForm roboto("roboto");
-		
-		bureaucrat.signForm(roboto);
-		roboto.execute(bureaucrat);
-		std::cout << roboto;
-	}
-	catch (const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	
-	try
-	{
 		Bureaucrat bureaucrat("zak", 1);
-		ShrubberyCreationForm shrubbery("shrubbery");
-		bureaucrat.signForm(shrubbery);
-		shrubbery.execute(bureaucrat);
-		std::cout << shrubbery;
+		Intern intern;
+		AForm *form1;
+		AForm *form2;
+		form1 = intern.makeForm("Roboto", "Bender");
+		form2 = intern.makeForm("Shrubbery", "saim");
+		try
+		{
+			bureaucrat.signForm(*form1);
+			bureaucrat.signForm(*form2);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		try
+		{
+			bureaucrat.executeForm(*form1);
+			form2->execute(bureaucrat);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		delete form1;
+		delete form2;
 	}
-	catch (const std::exception& e)
+	catch(const std::exception& e)
 	{
-			std::cerr << e.what() << std::endl;
-	}
-
-	try
-	{
-		std::srand(std::time(nullptr));
-		Bureaucrat bureaucrat("zak", 4);
-		PresidentialPardonForm presidential("presidential");
-		bureaucrat.signForm(presidential);
-		presidential.execute(bureaucrat);
-		std::cout << presidential;
-	}
-	catch (const std::exception& e)
-	{
-			std::cerr << e.what() << std::endl;
+		std::cerr << e.what() << '\n';
 	}
 	return 0;
 }
