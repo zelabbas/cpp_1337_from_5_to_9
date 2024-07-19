@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:24:30 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/07/19 11:51:53 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:00:40 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ AForm* Intern::makeForm(const std::string& _name, const std::string& _target)
 	}
 	if (!ptr)
 		throw FailedAllocateMemoryException;
+	std::cout << "Intern creates " << _target << std::endl;
 	return (ptr);
 }
 
