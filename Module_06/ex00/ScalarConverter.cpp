@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:18:29 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/01 22:17:43 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:02:16 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& _scalar){
 	return (*this);
 }
 
-int	ScalarConverter::detectType(const std::string &str)
-{
+int	ScalarConverter::detectType(const std::string &str) {
 	int i;
 
 	i = 0;
@@ -63,8 +62,7 @@ int	ScalarConverter::detectType(const std::string &str)
 	return (_STRING);
 }
 
-int ScalarConverter::AnoramlType(const std::string& str)
-{
+int ScalarConverter::AnoramlType(const std::string& str) {
 	if (!str.compare("-inff") || !str.compare("-inf"))
 		return (_MINUSINF);
 	if (!str.compare("+inff") || !str.compare("+inf"))
@@ -74,8 +72,7 @@ int ScalarConverter::AnoramlType(const std::string& str)
 	return (_STRING);
 }
 
-int	ScalarConverter::getType(const std::string& str)
-{
+int	ScalarConverter::getType(const std::string& str) {
 	int	_type;
 
 	_type = detectType(str);
@@ -84,8 +81,7 @@ int	ScalarConverter::getType(const std::string& str)
 	return (AnoramlType(str));
 }
 
-void	ScalarConverter::charCase(const std::string& str)
-{
+void	ScalarConverter::charCase(const std::string& str) {
 	char _char;
 
 	_char = static_cast<char>(str[0]);
@@ -98,32 +94,98 @@ void	ScalarConverter::charCase(const std::string& str)
 	std::cout << "double: " << static_cast<double>(_char) << std::endl;
 }
 
-void	ScalarConverter::stringCase(void)
-{
+void	ScalarConverter::intCase(const std::string& str) {
+	int	number;
+	std::stringstream	ssInt(str);
+
+	ssInt >> number;
+	if (ssInt.fail())
+	{
+		std::cout << "the number: " << str << " is out of range int" << std::endl;
+		return ;
+	}
+	if (isprint(number))
+		std::cout << "char: '" << static_cast<char> (number) << "'" << std::endl;
+	else
+		std::cout << "char: " << "Non displayable" << std::endl;
+	std::cout << "int: " << number << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(number) << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(number) << std::endl;
+}
+
+void	ScalarConverter::floatCase(const std::string& str) {
+	float	number;
+	std::string copyString;
+
+	copyString = str;
+	copyString[copyString.length() - 1] = '\0';
+	std::stringstream	ssFloat(copyString);
+
+	ssFloat >> number;
+	if (ssFloat.fail())
+	{
+		std::cout << "the number: " << str << " is out of range float" << std::endl;
+		return ;
+	}
+	if (isprint(number))
+		std::cout << "char: '" << static_cast<char> (number) << "'" << std::endl;
+	else
+		std::cout << "char: " << "Non displayable" << std::endl;
+	if (number < std::numeric_limits<int>::min() || number > std::numeric_limits<int>::max())
+		std::cout << "int: out of range" << std::endl;
+	else
+		std::cout << "int: " << static_cast<int> (number) << std::endl;
+	std::cout << "float: " << std::fixed << std::setprecision(1) << number << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(number) << std::endl;
+}
+
+void	ScalarConverter::doubleCase(const std::string& str) {
+	double	number;
+	std::stringstream	ssDouble(str);
+
+	ssDouble >> number;
+	if (ssDouble.fail())
+	{
+		std::cout << "the number: " << str << " is out of range double" << std::endl;
+		return ;
+	}
+	if (isprint(number))
+		std::cout << "char: '" << static_cast<char> (number) << "'" << std::endl;
+	else
+		std::cout << "char: " << "Non displayable" << std::endl;
+	if (number < std::numeric_limits<int>::min() || number > std::numeric_limits<int>::max())
+		std::cout << "int: out of range" << std::endl;
+	else
+		std::cout << "int: " << static_cast<int> (number) << std::endl;
+	if (number < std::numeric_limits<float>::min() || number > std::numeric_limits<float>::max())
+		std::cout << "float: out of range" << std::endl;
+	else
+		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(number) << "f" << std::endl;
+	std::cout << "double: " << number << std::endl;
+}
+
+void	ScalarConverter::stringCase(void) {
 	std::cout << "char: " << "converter Impossible" << std::endl;
 	std::cout << "int: " << "converter Impossible" << std::endl;
 	std::cout << "float: " << "converter Impossible" << std::endl;
 	std::cout << "double: " << "converter Impossible" << std::endl;
 }
 
-void	ScalarConverter::minusInfAndMinusInffCase(void)
-{
+void	ScalarConverter::minusInfAndMinusInffCase(void) {
 	std::cout << "char: " << "converter Impossible" << std::endl;
 	std::cout << "int: " << "converter Impossible" << std::endl;
 	std::cout << "float: " << "-inff" << std::endl;
 	std::cout << "double: " << "-inf" << std::endl;
 }
 
-void	ScalarConverter::plusInfAndPlusInffCase(void)
-{
+void	ScalarConverter::plusInfAndPlusInffCase(void) {
 	std::cout << "char: " << "converter Impossible" << std::endl;
 	std::cout << "int: " << "converter Impossible" << std::endl;
 	std::cout << "float: " << "+inff" << std::endl;
 	std::cout << "double: " << "+inf" << std::endl;
 }
 
-void	ScalarConverter::nanAndNanfCase(void)
-{
+void	ScalarConverter::nanAndNanfCase(void) {
 	std::cout << "char: " << "converter Impossible" << std::endl;
 	std::cout << "int: " << "converter Impossible" << std::endl;
 	std::cout << "float: " << "nanf" << std::endl;
@@ -141,13 +203,13 @@ void	ScalarConverter::convert(const std::string& str) {
 			charCase(str);
 			break;
 		case _INT:
-			std::cout << "INT" << std::endl;
+			intCase(str);
 			break;
 		case _FLOAT:
-			std::cout << "_FLOAT" << std::endl;
+			floatCase(str);
 			break;
 		case _DOUBLE:
-			std::cout << "_DOUBLE" << std::endl;
+			doubleCase(str);
 			break;
 		case _MINUSINF:
 			minusInfAndMinusInffCase();
@@ -161,10 +223,4 @@ void	ScalarConverter::convert(const std::string& str) {
 		default:
 			stringCase();
 	}
-}
-
-
-void ft(void)
-{
-	
 }
