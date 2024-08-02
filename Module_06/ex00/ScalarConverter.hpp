@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:18:32 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/01 17:06:53 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:42:17 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <exception>
+#include <sstream>
 
 typedef enum s_type{
 	_CHAR,
@@ -34,6 +36,9 @@ class ScalarConverter
 		static int	detectType(const std::string &str);
 		static int	AnoramlType(const std::string &str);
 		static void	charCase(const std::string& str);
+		static void	intCase(const std::string& str);
+		static void	floatCase(const std::string& str);
+		static void	doubleCase(const std::string& str);
 		static void	minusInfAndMinusInffCase(void);
 		static void	plusInfAndPlusInffCase(void);
 		static void	nanAndNanfCase(void);
@@ -42,8 +47,6 @@ class ScalarConverter
 		ScalarConverter(const ScalarConverter& );
 	public:
 		~ScalarConverter();
-
 		ScalarConverter& operator= (const ScalarConverter& );
-
 		static void convert(const std::string& );
 };
