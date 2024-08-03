@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 21:40:00 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/03 11:25:36 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:33:04 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int ac, char **av)
 		std::cout << "intValue: " << deserializedData->intValue << std::endl;
 		std::cout << "floatValue: " << deserializedData->floatValue << std::endl;
 		std::cout << "charValue: " << deserializedData->charValue << std::endl;
-		std::cout << "charValue: " << deserializedData->boolValue << std::endl;
+		std::cout << "boolValue: " << deserializedData->boolValue << std::endl;
 	}
 	else
 		std::cout << "Serialization and deserialization failed!" << std::endl;
