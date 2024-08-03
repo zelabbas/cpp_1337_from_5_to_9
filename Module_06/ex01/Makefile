@@ -9,7 +9,7 @@ COMPILE = c++
 SRCS = Serializer.cpp main.cpp
 OBJS = ${SRCS:.cpp=.o}
 
-%.o : %.cpp Serializer.hpp
+%.o : %.cpp Serializer.hpp Data.hpp
 	@${COMPILE} ${FLAGS} -c $< -o $@
 	@echo "compilation file {$<} done 	✅"
 
