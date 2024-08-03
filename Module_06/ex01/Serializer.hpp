@@ -6,20 +6,14 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 21:25:37 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/02 22:00:39 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:39:09 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
-
-typedef	struct s_data {
-	int		intValue;
-	float	floatValue;
-	char	charValue;
-	bool	boolValue;	
-}	Data;
+#include "Data.hpp"
 
 class Serializer
 {
