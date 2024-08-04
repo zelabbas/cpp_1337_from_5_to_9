@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:18:29 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/02 21:02:16 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:04:24 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,14 @@ void	ScalarConverter::charCase(const std::string& str) {
 	char _char;
 
 	_char = static_cast<char>(str[0]);
-	if (isprint(_char))
+	if (isprint(_char) && !isdigit(_char))
 		std::cout << "char: '" << _char << "'" << std::endl;
 	else
+	{
+		if (isdigit(_char))
+			_char = static_cast<char>(_char - '0');
 		std::cout << "char: " << "Non displayable" << std::endl;
+	}
 	std::cout << "int: " << static_cast<int>(_char) << std::endl;
 	std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(_char) << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(_char) << std::endl;
