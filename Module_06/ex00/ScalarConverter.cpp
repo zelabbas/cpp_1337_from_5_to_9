@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:18:29 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/04 17:34:20 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:24:20 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	ScalarConverter::floatCase(const std::string& str) {
 		std::cout << "the number: " << str << " is out of range float" << std::endl;
 		return ;
 	}
-	if (isprint(number))
+	if (isprint(static_cast<int> (number)))
 		std::cout << "char: '" << static_cast<char> (number) << "'" << std::endl;
 	else
 		std::cout << "char: " << "Non displayable" << std::endl;
@@ -154,7 +154,7 @@ void	ScalarConverter::doubleCase(const std::string& str) {
 		std::cout << "the number: " << str << " is out of range double" << std::endl;
 		return ;
 	}
-	if (isprint(number))
+	if (isprint(static_cast<int>(number)))
 		std::cout << "char: '" << static_cast<char> (number) << "'" << std::endl;
 	else
 		std::cout << "char: " << "Non displayable" << std::endl;
@@ -162,7 +162,7 @@ void	ScalarConverter::doubleCase(const std::string& str) {
 		std::cout << "int: out of range" << std::endl;
 	else
 		std::cout << "int: " << static_cast<int> (number) << std::endl;
-	if (number < std::numeric_limits<float>::min() || number > std::numeric_limits<float>::max())
+	if (number < std::numeric_limits<float>::lowest() || number > std::numeric_limits<float>::max())
 		std::cout << "float: out of range" << std::endl;
 	else
 		std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(number) << "f" << std::endl;
