@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 16:18:29 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/04 15:04:24 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:34:20 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	ScalarConverter::detectType(const std::string &str) {
 	i = 0;
 	if (str.size() == 0 || (str.size() == 1 && str[1] == '\0'))
 		return (_CHAR);
-	i++;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (str[i] == '-' || str[i] == '+')
+		return (_STRING);
 	while (isdigit(str[i]))
 		i++;
 	if (str[i] == '\0')
