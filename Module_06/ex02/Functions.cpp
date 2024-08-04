@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:41:58 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/03 16:44:02 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:56:36 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Base*	generate(void) {
 		case 2:
 			return new C();
 		default:
-			return (nullptr);
+			return (NULL);
 	}
 }
 
