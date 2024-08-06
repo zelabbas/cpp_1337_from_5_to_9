@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 12:21:27 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/06 18:49:40 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:56:33 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ int main(int ac, char **av)
 	{
 		std::cout << e.what() << std::endl;
 	}
+	return (0);
 }
