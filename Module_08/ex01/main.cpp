@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:31:24 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/09 15:01:08 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:39:08 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int ac, char **av) {
 		std::cerr << "Error usage: ./span!" << std::endl;
 		return (1);
 	}
-	Span<int> a(2);
+	Span a(2);
 	try
 	{
 		a.addNumber(1);
@@ -34,7 +34,7 @@ int main(int ac, char **av) {
 	{
 		std::cerr << e.what() << '\n';
 	}
-	Span<int> sp = Span<int>(10000);
+	Span sp = Span(10000);
 	sp.FillArray();
 	// sp.addNumber(6);
 	// sp.addNumber(10);
