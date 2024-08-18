@@ -6,18 +6,30 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:29:38 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/18 14:34:21 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/18 21:48:23 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange() {
-	std::cout << "called constructor by default!" << std::endl;
+	// std::cout << "called constructor by default!" << std::endl;
 }
 
 BitcoinExchange::~BitcoinExchange() {
-	std::cout << "called destructor!" << std::endl;
+	// std::cout << "called destructor!" << std::endl;
+}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& _obj) {
+	if (this != &_obj)
+		*this = _obj;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& _obj) {
+	if (this != &_obj) {
+		dataBaseMap = _obj.dataBaseMap;
+	}
+	return (*this);
 }
 
 void	BitcoinExchange::parseFileName(const std::string& fileName) {
@@ -104,10 +116,11 @@ bool	BitcoinExchange::validYearMonthDay(const std::string& _yStr, const std::str
 
 	if (_month < 1 || _month > 12)
 		return (false);
-	if (_month == 2)
-		isLeap = (_year % 4 == 0 && _year % 100 != 0) || (_year % 400 == 0);
-	if (_day > (isLeap ? 29 : 28))
-		return false;
+	if (_month == 2) {
+			isLeap = (_year % 4 == 0 && _year % 100 != 0) || (_year % 400 == 0);
+		if (_day > (isLeap ? 29 : 28))
+			return false;
+	}
 	else if (_day > daysInMonth[_month - 1])
 		return false;
 	return (!yearInt.fail() && !monthInt.fail() && !dayInt.fail()
@@ -131,7 +144,7 @@ bool	BitcoinExchange::validDate(const std::string& _date) {
 }
 
 bool	BitcoinExchange::parseLine(const std::string& _line) {
-	std::string	_date;
+	// std::string	_date;
 	std::string	_valueStr;
 	size_t		delimiterPos;
 
@@ -190,6 +203,27 @@ void	BitcoinExchange::loadDataFromDataBase(void) {
 		}
 		addToDataBaseMap(line, delimiterPos);
 	}
+	dataBase.close();
+}
+
+void	BitcoinExchange::findClosestLowerDate(const std::string& inputDate)	{
+	std::map<std::string, float>::const_iterator it;
+
+	it = dataBaseMap.lower_bound(inputDate);
+	if (it != dataBaseMap.end() && it->first == inputDate)
+		std::cout << inputDate << " => " << _value << " = " << it->second * _value << std::endl;
+	else {
+		if (it != dataBaseMap.begin()) {
+			--it;
+			if (it->first < inputDate)
+				std::cout << inputDate << " => " << _value << " = " << it->second * _value << std::endl;
+			else
+				std::cerr << "No suitable date found in the database for: " << inputDate << std::endl;
+		}
+		else
+			std::cerr << "No suitable date found in the database for: " << inputDate << std::endl;
+	}
+	
 }
 
 void	BitcoinExchange::readAndParseData(void) {
@@ -202,8 +236,9 @@ void	BitcoinExchange::readAndParseData(void) {
 	while (getline(infile, line))
 	{
 		if (parseLine(line))
-			std::cout << line << std::endl;
+			findClosestLowerDate(_date);
 	}
+	infile.close();
 }
 
 const char*	BitcoinExchange::InvalidFileName::what() const throw() {
