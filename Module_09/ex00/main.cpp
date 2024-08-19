@@ -6,16 +6,14 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:38:15 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/18 21:46:15 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:55:48 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <iostream>
 
 int main(int ac, char **av) {
 
-	(void)av;
 	BitcoinExchange test;
 	BitcoinExchange test2;
 	std::string		fileName;

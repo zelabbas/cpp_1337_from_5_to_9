@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:29:38 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/18 21:48:23 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:56:20 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,10 @@ bool	BitcoinExchange::validDate(const std::string& _date) {
 	dayStr = _date.substr(8, 2);
 	if (!validYearMonthDay(yearStr, monthStr, dayStr))
 		return (false);
-	// std::cout << "here: " + yearStr << "-" << monthStr << "-" <<dayStr  << std::endl;
 	return (true);
 }
 
 bool	BitcoinExchange::parseLine(const std::string& _line) {
-	// std::string	_date;
 	std::string	_valueStr;
 	size_t		delimiterPos;
 
