@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:54:13 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/19 22:14:24 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:17:50 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ RPN::RPN(const RPN& _rpn) {
 }
 
 RPN& RPN::operator=(const RPN& _rpn) {
-	if (this != &_rpn)
-		this->_rpnStack = _rpn._rpnStack;
+	if (this != &_rpn) {}
 	return (*this);
 }
 
