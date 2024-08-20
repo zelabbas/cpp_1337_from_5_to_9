@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:29:38 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/19 13:56:20 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:11:52 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	BitcoinExchange::displayError(const std::string& _line, int _nError) {
 	}
 }
 
-bool	BitcoinExchange::validValue(const std::string& _valueStr) {
+bool	BitcoinExchange::isValidValue(const std::string& _valueStr) {
 	std::stringstream strFloat(_valueStr);
 	strFloat >> _value;
 	return !strFloat.fail() && strFloat.eof();
 }
 
-bool	BitcoinExchange::validYearMonthDay(const std::string& _yStr, const std::string& _mStr, const std::string& _dStr) {
+bool	BitcoinExchange::isValidYearMonthDay(const std::string& _yStr, const std::string& _mStr, const std::string& _dStr) {
 	int _year, _month, _day;
 	bool isLeap;
 	const int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -114,7 +114,7 @@ bool	BitcoinExchange::validYearMonthDay(const std::string& _yStr, const std::str
 	dayInt >> _day;
 	isLeap = false;
 
-	if (_month < 1 || _month > 12)
+	if (_month < 1 || _month > 12 || _day <= 0 || _year < 0)
 		return (false);
 	if (_month == 2) {
 			isLeap = (_year % 4 == 0 && _year % 100 != 0) || (_year % 400 == 0);
@@ -127,7 +127,7 @@ bool	BitcoinExchange::validYearMonthDay(const std::string& _yStr, const std::str
 		&& yearInt.eof() && monthInt.eof() && dayInt.eof());
 }
 
-bool	BitcoinExchange::validDate(const std::string& _date) {
+bool	BitcoinExchange::isValidDate(const std::string& _date) {
 	std::string	yearStr;
 	std::string	monthStr;
 	std::string	dayStr;
@@ -137,7 +137,7 @@ bool	BitcoinExchange::validDate(const std::string& _date) {
 	yearStr = _date.substr(0, 4);
 	monthStr = _date.substr(5, 2);
 	dayStr = _date.substr(8, 2);
-	if (!validYearMonthDay(yearStr, monthStr, dayStr))
+	if (!isValidYearMonthDay(yearStr, monthStr, dayStr))
 		return (false);
 	return (true);
 }
@@ -153,7 +153,7 @@ bool	BitcoinExchange::parseLine(const std::string& _line) {
 	_valueStr = _line.substr(delimiterPos + 1);
 	_date = trimString(_date);
 	_valueStr = trimString(_valueStr);
-	if (!validDate(_date) || !validValue(_valueStr))
+	if (!isValidDate(_date) || !isValidValue(_valueStr))
 		return (displayError(_line, 0), false);
 	if (_value < 0)
 		return (displayError(_line, 1), false);
@@ -175,8 +175,7 @@ void	BitcoinExchange::addToDataBaseMap(const std::string& _str, size_t _posDelim
 	rateFloat >> _rateValue;
 	if (rateFloat.fail() || !rateFloat.eof())
 	{
-		infile.close();
-		dataBase.close();
+		closeFds();
 		throw ErrorInvalidData;
 	}
 	dataBaseMap[_date] = _rateValue;
@@ -195,16 +194,14 @@ void	BitcoinExchange::loadDataFromDataBase(void) {
 		delimiterPos = line.find(',');
 		if (delimiterPos == std::string::npos)
 		{
-			infile.close();
-			dataBase.close();
+			closeFds();
 			throw ErrorInvalidData;
 		}
 		addToDataBaseMap(line, delimiterPos);
 	}
-	dataBase.close();
 }
 
-void	BitcoinExchange::findClosestLowerDate(const std::string& inputDate)	{
+void	BitcoinExchange::findClosestLowerDate(const std::string& inputDate) {
 	std::map<std::string, float>::const_iterator it;
 
 	it = dataBaseMap.lower_bound(inputDate);
@@ -236,7 +233,11 @@ void	BitcoinExchange::readAndParseData(void) {
 		if (parseLine(line))
 			findClosestLowerDate(_date);
 	}
+}
+
+void	BitcoinExchange::closeFds(void) {
 	infile.close();
+	dataBase.close();
 }
 
 const char*	BitcoinExchange::InvalidFileName::what() const throw() {
