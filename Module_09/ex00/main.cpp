@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:38:15 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/19 13:55:48 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:14:00 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int main(int ac, char **av) {
 		test.OpenFile(fileName);
 		test.loadDataFromDataBase();
 		test2 = test;
+		test.closeFds();
 		test2.OpenFile(fileName);
 		test2.readAndParseData();
+		test2.closeFds();
 	}
 	catch(const std::exception& e)
 	{
