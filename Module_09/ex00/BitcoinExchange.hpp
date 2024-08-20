@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:29:35 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:37:31 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:12:14 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ class BitcoinExchange
 		std::map<std::string, float>	dataBaseMap;
 		std::string						trimString(const std::string& str);
 		bool							parseLine(const std::string& _line);
-		bool							validYearMonthDay(const std::string& _yStr,
+		bool							isValidYearMonthDay(const std::string& _yStr,
 											const std::string& _mStr, const std::string& _dStr);
-		bool							validDate(const std::string& _date);
-		bool							validValue(const std::string& _value);
+		bool							isValidDate(const std::string& _date);
+		bool							isValidValue(const std::string& _value);
 		void							addToDataBaseMap(const std::string& _str, size_t _posDelimiter);
 		void							findClosestLowerDate(const std::string& inputDate);
 		void							displayError(const std::string& _line, int _nError);
@@ -44,6 +44,7 @@ class BitcoinExchange
 		void	OpenFile(const std::string& FileName);
 		void	loadDataFromDataBase(void);
 		void	readAndParseData(void);
+		void	closeFds(void);
 		class	InvalidFileName: public std::exception
 		{
 			public:
