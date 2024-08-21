@@ -6,33 +6,41 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:49 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/20 16:40:51 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:07:03 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <vector>
-#include <list>
+#include <deque>
 #include <exception>
+#include <ctime>
+#include <iomanip>
 #include <sstream>
 
 class PmergeMe
 {
 	private:
-		std::list<int>		_list;
+		int					size;
+		std::deque<int>		_deque;
 		std::vector<int>	_vector;
 		bool				isAlreadyExist(int _number);
-		bool				isPlusOrMinus(char c);
+		bool				isPlus(char c);
 		int					strToInt(const std::string& _str);
 		bool				isValidChracters(const std::string& _str);
 		void				mergeSubarrays(std::vector<int>& _vec, int left, int mid, int right);
+		void				mergeSubarrays(std::deque<int>& _vec, int left, int mid, int right);
+		void	StartMergeSortVector(std::vector<int>& _vec, int left, int right);
+		void	StartMergeSortDeque(std::deque<int>& _vec, int left, int right);
 	public:
 		PmergeMe();
 		~PmergeMe();
 		void	ParseArgAndStorIt(const std::string& _str);
-		void	MergeSort(std::vector<int>& _vec, int left, int right);
+		void	MergeSortVector(void);
+		void	MergeSortDeque(void);
 		void	displayElements(void);
+		int		getSize(void);
 		class ErrorInvalidArgument : public std::exception
 		{
 			public:
