@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:49 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/21 14:07:03 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:50:03 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,44 @@
 #include <exception>
 #include <ctime>
 #include <iomanip>
+#include <utility>
 #include <sstream>
 
 class PmergeMe
 {
 	private:
 		int					size;
+		int					lastElement;
 		std::deque<int>		_deque;
 		std::vector<int>	_vector;
 		bool				isAlreadyExist(int _number);
 		bool				isPlus(char c);
 		int					strToInt(const std::string& _str);
 		bool				isValidChracters(const std::string& _str);
-		void				mergeSubarrays(std::vector<int>& _vec, int left, int mid, int right);
-		void				mergeSubarrays(std::deque<int>& _vec, int left, int mid, int right);
-		void	StartMergeSortVector(std::vector<int>& _vec, int left, int right);
-		void	StartMergeSortDeque(std::deque<int>& _vec, int left, int right);
+		// vector
+		void				makePairsVector(std::vector<std::pair<int , int> >& _pairVector);
+		void				mainPendChainVector(std::vector<int>& _mainVect, std::vector<int>& _tmpVect,std::vector<std::pair<int , int> >& _pairVector);
+		void				sortEachPairVector(std::vector<std::pair<int , int> >& _pairVector);
+		void				mergeMainPendChainVector(std::vector<int>& _mainVect, std::vector<int>& _tmpVect);
+		void				copyMainChaintoMainVector(std::vector<int>& _mainVect);
+		// deque
+		void				makePairsDeque(std::deque<std::pair<int , int> >& _pairVector);
+		void				mainPendChainDeque(std::deque<int>& _mainVect, std::deque<int>& _tmpVect,std::deque<std::pair<int , int> >& _pairVector);
+		void				sortEachPairDeque(std::deque<std::pair<int , int> >& _pairVector);
+		void				mergeMainPendChainDeque(std::deque<int>& _mainVect, std::deque<int>& _tmpVect);
+		void				copyMainChaintoMainDeque(std::deque<int>& _mainVect);
+		// void				mergeSubarrays(std::vector<int>& _vec, int left, int mid, int right);
+		// void				mergeSubarrays(std::deque<int>& _vec, int left, int mid, int right);
+		// void	StartMergeSortVector(std::vector<int>& _vec, int left, int right);
+		// void	StartMergeSortDeque(std::deque<int>& _vec, int left, int right);
 	public:
 		PmergeMe();
 		~PmergeMe();
 		void	ParseArgAndStorIt(const std::string& _str);
-		void	MergeSortVector(void);
-		void	MergeSortDeque(void);
-		void	displayElements(void);
+		void	FordJohnsonVector(void);
+		void	FordJohnsonDeque(void);
+		void	displayElementsVector(void);
+		void	displayElementsDeque(void);
 		int		getSize(void);
 		class ErrorInvalidArgument : public std::exception
 		{
