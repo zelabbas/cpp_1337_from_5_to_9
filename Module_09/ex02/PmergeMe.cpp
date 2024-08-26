@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:51 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/21 14:11:40 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:49:57 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	PmergeMe::isValidChracters(const std::string& _str) {
 	return (true);
 }
 
-void	PmergeMe::displayElements(void) {
+void	PmergeMe::displayElementsDeque(void) {
 
 	std::deque<int>::iterator itDeque = _deque.begin();
 	std::cout << "-------------deque--------------" <<  std::endl;
@@ -64,14 +64,17 @@ void	PmergeMe::displayElements(void) {
 		itDeque++;
 	}
 	std::cout << std::endl;
-	// std::cout << "-------------vector--------------" <<  std::endl;
-	// std::vector<int>::iterator itVector = _vector.begin();
-	// while (itVector != _vector.end())
-	// {
-	// 	std::cout << *itVector << " " ;
-	// 	itVector++;
-	// }
-	// std::cout << std::endl;
+}
+
+void	PmergeMe::displayElementsVector(void) {
+	std::cout << "-------------vector--------------" <<  std::endl;
+	std::vector<int>::iterator itVector = _vector.begin();
+	while (itVector != _vector.end())
+	{
+		std::cout << *itVector << " " ;
+		itVector++;
+	}
+	std::cout << std::endl;
 }
 
 bool	PmergeMe::isAlreadyExist(int _value) {
@@ -97,142 +100,205 @@ void	PmergeMe::ParseArgAndStorIt(const std::string& _str) {
 	_vector.push_back(_value);
 }
 
-void	PmergeMe::mergeSubarrays(std::vector<int>& _vec, int left, int mid, int right) {
-	int lenArrayLeft;
-	int lenArrayRight;
-	int i;
-	int j;
-	int k;
+// start vector sort
+void	PmergeMe::makePairsVector(std::vector<std::pair<int , int> >& _pairVector) {
 
-	lenArrayLeft = mid - left + 1;
-	lenArrayRight = right - mid;
-
-	std::vector<int> subArrayLeft(lenArrayLeft), subArrayRight(lenArrayRight);
-
-	i = 0, j = 0;
-	while (i < lenArrayLeft) {
-		subArrayLeft[i] = _vec[left + i];
-		i++;
-	}
-	while (j < lenArrayRight) {
-		subArrayRight[j] = _vec[mid + 1 + j];
-		j++;
-	}
-	i = 0, j = 0;
-	k = left;
-	while (i < lenArrayLeft && j < lenArrayRight)
+	std::vector<int>::iterator	it;
+	it = _vector.begin();
+	while (it != _vector.end())
 	{
-		if (subArrayLeft[i] <= subArrayRight[j])
-		{
-			_vec[k] = subArrayLeft[i];
-			i++;
-		}
-		else
-		{
-			_vec[k] = subArrayRight[j];
-			j++;
-		}
-		k++;
-	}
-	while (i < lenArrayLeft) 
-	{
-		_vec[k] = subArrayLeft[i];
-		i++;
-		k++;
-	}
-	while (j < lenArrayRight) 
-	{
-		_vec[k] = subArrayRight[j];
-		j++;
-		k++;
+		_pairVector.insert(_pairVector.end(), std::make_pair(*it, *(it + 1)));
+		it +=2;
 	}
 }
 
-void	PmergeMe::mergeSubarrays(std::deque<int>& _vec, int left, int mid, int right) {
-	int lenArrayLeft;
-	int lenArrayRight;
-	int i;
-	int j;
-	int k;
+void	PmergeMe::mainPendChainVector(std::vector<int>& _mainVect, std::vector<int>& _tmpVect,std::vector<std::pair<int , int> >& _pairVector) {
+	std::vector<std::pair<int, int> >::iterator	it;
 
-	lenArrayLeft = mid - left + 1;
-	lenArrayRight = right - mid;
-
-	std::deque<int> subArrayLeft(lenArrayLeft), subArrayRight(lenArrayRight);
-
-	i = 0, j = 0;
-	while (i < lenArrayLeft) {
-		subArrayLeft[i] = _vec[left + i];
-		i++;
-	}
-	while (j < lenArrayRight) {
-		subArrayRight[j] = _vec[mid + 1 + j];
-		j++;
-	}
-	i = 0, j = 0;
-	k = left;
-	while (i < lenArrayLeft && j < lenArrayRight)
+	it = _pairVector.begin();
+	if (it != _pairVector.end())
 	{
-		if (subArrayLeft[i] <= subArrayRight[j])
-		{
-			_vec[k] = subArrayLeft[i];
-			i++;
+		_mainVect.push_back(it->second);
+		_mainVect.push_back(it->first);
+		it++;
+	}
+	while (it != _pairVector.end())
+	{
+		_mainVect.push_back(it->first);
+		_tmpVect.push_back(it->second);
+		it++;
+	}
+}
+
+void	PmergeMe::sortEachPairVector(std::vector<std::pair<int , int> >& _pairVector) {
+	std::vector<std::pair<int , int> >::iterator	it;
+
+	it = _pairVector.begin();
+	while (it != _pairVector.end())
+	{
+		if (it->first < it->second) {
+			it->first ^= it->second;
+			it->second ^= it->first;
+			it->first ^= it->second;
 		}
-		else
-		{
-			_vec[k] = subArrayRight[j];
-			j++;
-		}
-		k++;
+		it++;
 	}
-	while (i < lenArrayLeft) 
+}
+
+void	PmergeMe::mergeMainPendChainVector(std::vector<int>& _mainVect, std::vector<int>& _tmpVect) {
+
+	std::vector<int>::iterator	itMain;
+	std::vector<int>::iterator	itPend;
+
+	itPend = _tmpVect.begin();
+	while (itPend != _tmpVect.end()) {
+		itMain = std::upper_bound(_mainVect.begin(), _mainVect.end(), *itPend);
+		_mainVect.insert(itMain, *itPend);
+		itPend++;
+	}
+}
+
+void	PmergeMe::copyMainChaintoMainVector(std::vector<int>& _mainVect) {
+	std::vector<int>::iterator	it;
+	std::vector<int>::iterator	posLastElement;
+
+	_vector.clear();
+	it = _mainVect.begin();
+	while (it != _mainVect.end())
 	{
-		_vec[k] = subArrayLeft[i];
-		i++;
-		k++;
+		_vector.push_back(*it);
+		it++;
 	}
-	while (j < lenArrayRight) 
+	if (lastElement != -1)
 	{
-		_vec[k] = subArrayRight[j];
-		j++;
-		k++;
+		posLastElement = std::upper_bound(_vector.begin(), _vector.end(), lastElement);
+		_vector.insert(posLastElement, lastElement);
 	}
 }
 
-
-void	PmergeMe::StartMergeSortVector(std::vector<int>& _vec, int left, int right) {
-	int mid;
-
-	if (left >= right)
-		return ;
-	mid = left + (right - left) / 2;
-	StartMergeSortVector(_vec, left, mid);
-	StartMergeSortVector(_vec, mid + 1, right);
-	mergeSubarrays(_vec, left, mid, right);
-}
-
-
-void	PmergeMe::StartMergeSortDeque(std::deque<int>& _deque, int left, int right) {
-	int mid;
-
-	if (left >= right)
-		return ;
-	mid = left + (right - left) / 2;
-	StartMergeSortDeque(_deque, left, mid);
-	StartMergeSortDeque(_deque, mid + 1, right);
-	mergeSubarrays(_deque, left, mid, right);
-}
-
-
-void	PmergeMe::MergeSortVector(void) {
+void	PmergeMe::FordJohnsonVector(void) {
 	size = _vector.size();
-	StartMergeSortVector(_vector, 0, _vector.size() - 1);
+	std::vector<std::pair<int, int> > _pairVector;
+	std::vector<int> mainVector;
+	std::vector<int> tmpVector;
+
+	lastElement = -1;
+	if (_vector.size() % 2) {
+		lastElement = *(--(_vector.end()));
+		_vector.pop_back();
+	}
+	makePairsVector(_pairVector);
+	sortEachPairVector(_pairVector);
+	std::sort(_pairVector.begin(), _pairVector.end());
+	mainPendChainVector(mainVector, tmpVector, _pairVector);
+	mergeMainPendChainVector(mainVector, tmpVector);
+	copyMainChaintoMainVector(mainVector);
+	_pairVector.clear();
+	mainVector.clear();
+	tmpVector.clear();
+}
+// end vector sort 
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// start deque sort 
+void	PmergeMe::makePairsDeque(std::deque<std::pair<int , int> >& _pairDeque) {
+
+	std::deque<int>::iterator	it;
+	it = _deque.begin();
+	while (it != _deque.end())
+	{
+		_pairDeque.insert(_pairDeque.end(), std::make_pair(*it, *(it + 1)));
+		it += 2;
+	}
 }
 
-void	PmergeMe::MergeSortDeque(void) {
-	size = _deque.size();
-	StartMergeSortDeque(_deque, 0, _deque.size() - 1);
+void	PmergeMe::mainPendChainDeque(std::deque<int>& _mainDeque, std::deque<int>& _tmpDeque,std::deque<std::pair<int , int> >& _pairDeque) {
+	std::deque<std::pair<int, int> >::iterator	it;
+
+	it = _pairDeque.begin();
+	if (it != _pairDeque.end())
+	{
+		_mainDeque.push_back(it->second);
+		_mainDeque.push_back(it->first);
+		it++;
+	}
+	while (it != _pairDeque.end())
+	{
+		_mainDeque.push_back(it->first);
+		_tmpDeque.push_back(it->second);
+		it++;
+	}
 }
+
+void	PmergeMe::sortEachPairDeque(std::deque<std::pair<int , int> >& _pairDeque) {
+	std::deque<std::pair<int , int> >::iterator	it;
+
+	it = _pairDeque.begin();
+	while (it != _pairDeque.end())
+	{
+		if (it->first < it->second) {
+			it->first ^= it->second;
+			it->second ^= it->first;
+			it->first ^= it->second;
+		}
+		it++;
+	}
+}
+
+void	PmergeMe::mergeMainPendChainDeque(std::deque<int>& _mainDeque, std::deque<int>& _tmpDeque) {
+
+	std::deque<int>::iterator	itMain;
+	std::deque<int>::iterator	itPend;
+
+	itPend = _tmpDeque.begin();
+	while (itPend != _tmpDeque.end()) {
+		itMain = std::upper_bound(_mainDeque.begin(), _mainDeque.end(), *itPend);
+		_mainDeque.insert(itMain, *itPend);
+		itPend++;
+	}
+}
+
+void	PmergeMe::copyMainChaintoMainDeque(std::deque<int>& _mainDeque) {
+	std::deque<int>::iterator	it;
+	std::deque<int>::iterator	posLastElement;
+
+	_deque.clear();
+	it = _mainDeque.begin();
+	while (it != _mainDeque.end())
+	{
+		_deque.push_back(*it);
+		it++;
+	}
+	if (lastElement != -1)
+	{
+		posLastElement = std::upper_bound(_deque.begin(), _deque.end(), lastElement);
+		_deque.insert(posLastElement, lastElement);
+	}
+}
+
+void	PmergeMe::FordJohnsonDeque(void) {
+	size = _deque.size();
+	std::deque<std::pair<int, int> > _pairDeque;
+	std::deque<int> mainDeque;
+	std::deque<int> tmpDeque;
+
+	lastElement = -1;
+	if (_deque.size() % 2) {
+		lastElement = *(--(_deque.end()));
+		_deque.pop_back();
+	}
+	makePairsDeque(_pairDeque);
+	sortEachPairDeque(_pairDeque);
+	std::sort(_pairDeque.begin(), _pairDeque.end());
+	mainPendChainDeque(mainDeque, tmpDeque, _pairDeque);
+	mergeMainPendChainDeque(mainDeque, tmpDeque);
+	copyMainChaintoMainDeque(mainDeque);
+	_pairDeque.clear();
+	mainDeque.clear();
+	tmpDeque.clear();
+}
+// end deque sort
 
 int	PmergeMe::getSize(void) {
 	return (size);
