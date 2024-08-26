@@ -1,4 +1,4 @@
-NAME = PmergeMe    # to update 
+NAME = PmergeMe
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
