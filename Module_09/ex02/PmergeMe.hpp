@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:49 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/26 16:50:03 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:04:21 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ class PmergeMe
 		// void	StartMergeSortDeque(std::deque<int>& _vec, int left, int right);
 	public:
 		PmergeMe();
+		PmergeMe(const PmergeMe& _pmrge);
 		~PmergeMe();
+	
+		PmergeMe& operator=(const PmergeMe& _pmrge);
 		void	ParseArgAndStorIt(const std::string& _str);
 		void	FordJohnsonVector(void);
 		void	FordJohnsonDeque(void);

@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:51 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/26 16:49:57 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:12:15 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,22 @@ PmergeMe::PmergeMe() {
 	size = 0;
 }
 
+PmergeMe::PmergeMe(const PmergeMe& _pmrge) {
+	if (this != &_pmrge)
+		*this = _pmrge;
+}
+
 PmergeMe::~PmergeMe() {
 	std::cout << "Destructor called" << std::endl; 
+}
+
+PmergeMe&	PmergeMe::operator=(const PmergeMe& _pmrge) {
+	if (this != _pmrge) {
+		_deque = _pmrge._deque;
+		_vector = _pmrge._vector;
+		size = _pmrge.size;
+		lastElement = _pmrge.lastElement;
+	}
 }
 
 bool	PmergeMe::isPlus(char c) {
