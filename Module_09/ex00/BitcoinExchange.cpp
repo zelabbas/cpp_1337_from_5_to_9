@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:29:38 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/20 11:11:52 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:15:46 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& _obj) {
 }
 
 void	BitcoinExchange::parseFileName(const std::string& fileName) {
-	std::string target = ".txt";
+	std::string target1 = ".txt";
+	std::string target2 = ".csv";
 	std::string	fileExtension;
 	if (fileName.size() < 4)
 	{
@@ -41,7 +42,7 @@ void	BitcoinExchange::parseFileName(const std::string& fileName) {
 		throw InvalidFileName;
 	}
 	fileExtension = fileName.substr(fileName.size() - 4);
-	if (fileExtension != target) {
+	if (fileExtension != target1 && fileExtension != target2) {
 		std::cerr << fileName << ": ";
 		throw InvalidFileName;
 	}

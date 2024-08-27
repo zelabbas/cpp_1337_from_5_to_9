@@ -6,53 +6,51 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:22:17 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/26 17:03:36 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:52:23 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-int main(int ac, char **av) {
+// Function to calculate time difference in seconds
+double getTimeDifferenceInSeconds(const struct timeval& start, const struct timeval& end) {
+	return (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+}
 
-	int	i;
-	PmergeMe	test;
-	clock_t		startTimeV;
-	clock_t		endTimeV;
-	// clock_t		startTimeD;
-	// clock_t		endTimeD;
+int main(int ac, char **av) {
+	int i;
+	PmergeMe test;
+	struct timeval startTimeV, endTimeV;
+	struct timeval startTimeD, endTimeD;
+
 	if (ac == 1) {
 		std::cerr << "Error usage: ./PmergeMe arg1 arg2 ..." << std::endl;
-		return (1);
+		return 1;
 	}
-	try
-	{
+	try {
 		i = 1;
-		while (i < ac)
-		{
-			test.ParseArgAndStorIt(static_cast<std::string> (av[i]));
+		while (i < ac) {
+			test.ParseArgAndStorIt(static_cast<std::string>(av[i]));
 			i++;
 		}
 		std::cout << "Before: ";
 		test.displayElementsDeque();
-		startTimeV = clock();
+
+		gettimeofday(&startTimeD, NULL);
 		test.FordJohnsonDeque();
-		test.FordJohnsonDeque();
-		test.FordJohnsonDeque();
-		test.FordJohnsonDeque();
-		test.FordJohnsonDeque();
-		// test.FordJohnsonVector();
-		endTimeV = clock();
-		// startTimeD = clock();
-		// test.MergeSortDeque();
-		// endTimeD = clock();
+		gettimeofday(&endTimeD, NULL);
+
+		gettimeofday(&startTimeV, NULL);
+		test.FordJohnsonVector();
+		gettimeofday(&endTimeV, NULL);
+
 		std::cout << "After: ";
-		test.displayElementsDeque();
-		// std::cout << "time is : " << static_cast<double>(endTimeV - startTimeV / CLOCKS_PER_SEC) << std::endl;
-		// std::cout << "time is : " << static_cast<double>(endTimeD - startTimeD / CLOCKS_PER_SEC) << std::endl;
+		test.displayElementsVector();
+		std::cout << "Vector time: " << getTimeDifferenceInSeconds(startTimeV, endTimeV) << " seconds" << std::endl;
+		std::cout << "Deque time: " << getTimeDifferenceInSeconds(startTimeD, endTimeD) << " seconds" << std::endl;
 	}
-	catch(const std::exception& e)
-	{
+	catch(const std::exception& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
-	return (0);
+	return 0;
 }
