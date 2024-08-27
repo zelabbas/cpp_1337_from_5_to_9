@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:49 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/27 19:04:21 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:51:26 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <vector>
 #include <deque>
 #include <exception>
-#include <ctime>
+#include <sys/time.h>
 #include <iomanip>
 #include <utility>
 #include <sstream>
@@ -70,3 +70,4 @@ class PmergeMe
 				const char* what() const throw();
 		}	ErrorDuplicateArgument;
 };
+

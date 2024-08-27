@@ -6,7 +6,7 @@
 /*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:20:51 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/27 19:12:15 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:52:35 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ PmergeMe::~PmergeMe() {
 }
 
 PmergeMe&	PmergeMe::operator=(const PmergeMe& _pmrge) {
-	if (this != _pmrge) {
+	if (this != &_pmrge) {
 		_deque = _pmrge._deque;
 		_vector = _pmrge._vector;
 		size = _pmrge.size;
 		lastElement = _pmrge.lastElement;
 	}
+	return (*this);
 }
 
 bool	PmergeMe::isPlus(char c) {
@@ -56,12 +57,21 @@ bool	PmergeMe::isValidChracters(const std::string& _str) {
 	int	countDigit;
 
 	countDigit = 0;
-	for (size_t i = 0; i < _str.size(); i++)
+	size_t	i = 0;
+	while (i < _str.size())
+	{
+		if (isspace(_str[i]))
+			i++;
+		else
+			break;
+	}
+	while (i < _str.size())
 	{
 		if (!isdigit(_str[i]) && !isPlus(_str[i]))
 			return (false);
 		if (isdigit(_str[i]))
 			countDigit++;
+		i++;
 	}
 	if (countDigit == 0)
 		return (false);
@@ -108,8 +118,8 @@ void	PmergeMe::ParseArgAndStorIt(const std::string& _str) {
 	if (!isValidChracters(_str))
 		throw	ErrorInvalidArgument;
 	_value = strToInt(_str);
-	if (isAlreadyExist(_value))
-		throw	ErrorDuplicateArgument;
+	// if (isAlreadyExist(_value))
+	// 	throw	ErrorDuplicateArgument;
 	_deque.push_back(_value);
 	_vector.push_back(_value);
 }
