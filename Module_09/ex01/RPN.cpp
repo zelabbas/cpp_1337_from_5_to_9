@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zelabbas <zelabbas@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zelabbas <zelabbas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:54:13 by zelabbas          #+#    #+#             */
-/*   Updated: 2024/08/19 22:17:50 by zelabbas         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:43:59 by zelabbas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	RPN::isOperationValid(int firstValue, int secondValue, char _operator) cons
 	{
 		case '*':
 			if (firstValue != 0 && secondValue != 0 &&
-				(firstValue > INT_MAX / secondValue || firstValue < INT_MIN / secondValue))
+				(firstValue * secondValue > INT_MAX || firstValue * secondValue < INT_MIN))
 				throw ErrorOverFlow;
 			break;
 		case '/':
@@ -111,8 +111,7 @@ void	RPN::isOperationValid(int firstValue, int secondValue, char _operator) cons
 				throw ErrorOverFlow;
 			break;
 		case '-':
-			if ((firstValue < 0 && secondValue > INT_MAX + firstValue) ||
-				(firstValue > 0 && secondValue < INT_MIN + firstValue))
+			if (firstValue < 0 && secondValue > INT_MAX + firstValue)
 				throw ErrorOverFlow;
 			break;
 	}
